@@ -18,14 +18,18 @@ for NixOS or any distro/OS with the nix package manager (you have to have flakes
 ```bash
 $ git clone {this repo}; cd {this repo}
 $ nix develop
+$ python -m venv .venv
 $ source .venv/bin/activate
-$ pip install django==5.0.1 (if django isnt present in the venv by default)
+$ pip install django==5.0.1
 $ python manage.py runserver
 ```
 and then go to 127.0.0.1:8000 on your browser
 
-for other distros you will probably have to install packages manually, particularly django 5.0.1 and python 3.12 (specific versions i used), and then just run:
+for other distros you will probably have to install packages manually, particularly python 3.12 (specific versions i used), and then run:
 ```bash
+$ python -m venv .venv
+$ source .venv/bin/activate
+$ pip install django==5.0.1
 $ python manage.py runserver
 ```
 
