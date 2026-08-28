@@ -22,3 +22,5 @@ $ python manage.py runserver
 and then go to 127.0.0.1:8000 on your browser
 
 for other distros you will probably have to install packages system-wide, particularly django 5.0.1 and python 3.12 (specific versions i used), and then just run "python manage.py runserver".
+
+by default it should have two entries: "Django Docs" and "nixpkgs", and one category: "Programming" i added those myself since i plan on using this as well, but i forgot to delete them from the database.
