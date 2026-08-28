@@ -55,3 +55,19 @@ body {
         padding: 15px;
         margin: 10px;
 }
+
+.add_form {
+        color: #d8d8d8;
+        width: 1000px;
+        margin: auto;
+}
+
+.add_form input {
+        width: 200px;
+}
+
+.add_form textarea{
+        width: 50%;
+        height: 200px;
+        resize: none;
+}

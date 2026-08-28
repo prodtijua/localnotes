@@ -8,7 +8,6 @@ local-first django bookmark manager/note taking app
 ## to-do
 * add ability to delete bookmarks without having to use the django admin panel
 * add ability to add new categories without having to use the django admin panel
-* make the UI of the page to add bookmarks readable and usable
 
 ## installation and usage
 i built this only with my setup in mind, so i will go over setup on NixOS.
