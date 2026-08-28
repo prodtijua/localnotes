@@ -13,7 +13,7 @@ local-first django bookmark manager/note taking app
 ## installation and usage
 i built this only with my setup in mind, so i will go over setup on NixOS.
 
-for NixOS:
+for NixOS or any distro/OS with the nix package manager (you have to have flakes enabled):
 ```bash
 $ git clone {this repo}; cd {this repo}
 $ nix develop
