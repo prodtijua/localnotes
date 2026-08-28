@@ -25,7 +25,7 @@ $ python manage.py runserver
 ```
 and then go to 127.0.0.1:8000 on your browser
 
-for other distros you will probably have to install packages manually, particularly python 3.12 (specific versions i used), and then run:
+for other distros you will probably have to install packages manually, particularly python 3.12 (specific version i used), and then run:
 ```bash
 $ python -m venv .venv
 $ source .venv/bin/activate
