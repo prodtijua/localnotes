@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+        localnotes
+{% endblock %}
+{% block content %}
+        {% for bookmark in bookmarks %}
+                <div class="bookmark">
+                        <h2>{{bookmark.title}}</h2>
+                        <a href="{{bookmark.url}}">{{bookmark.url}}</a>
+                        <p>{{bookmark.description}}</p>
+                        <p>{{bookmark.category}}</p>
+                </div>
+        {% endfor %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+        localnotes - add note
+{% endblock %}
+{% block content %}
+        <form method = "post" class = "add_form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>title</label>
+                <input type="text" name="title"/>
+                <label>url</label>
+                <input type="text" name="url"/>
+                <label>description</label>
+                <textarea name="description"></textarea>
+                <select name = "category">
+                        {% for category in categories %}
+                        <option value={{category.id}}>{{category.name}}</option>
+                        {% endfor %}
+                </select>
+                <input type="submit">
+        </form>
+        
+{% endblock %}

@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+  <head>
+          <link rel="stylesheet" href="{% static 'css/style.css'%}">
+          <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+          <header class="header">
+                  <div class="header-container">
+                            <!-- logo -->
+                            <a href="/" class="site-logo">localnotes</a>
+
+                            <!-- navigation -->
+                            <nav class="site-nav">
+                                    <a href="/" class="nav-link">home</a>
+                                    <a href="/add" class="nav-link add-link">add note</a>
+                            </nav>
+                  </div>
+          </header>
+          {% block content %}{% endblock %}
+  </body>
+</html>
