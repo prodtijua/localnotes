@@ -21,5 +21,6 @@ from core.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name = 'main'),
-    path('add/', add)
+    path('add/', add),
+    path('delete/<int:note_id>', del_note, name = 'delnote')
 ]

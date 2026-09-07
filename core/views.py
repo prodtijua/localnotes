@@ -18,3 +18,8 @@ def add(request):
     return render(request, 'add.html', {
             "categories": Category.objects.all()
         })
+
+def del_note(request, note_id):
+    note = Bookmark.objects.get(id = note_id)
+    note.delete()
+    return redirect('main')

@@ -10,6 +10,7 @@
                         <a href="{{bookmark.url}}">{{bookmark.url}}</a>
                         <p>{{bookmark.description}}</p>
                         <p>{{bookmark.category}}</p>
+                        <a href= "{% url 'delnote' bookmark.id %}">delete</a>
                 </div>
         {% endfor %}
 {% endblock %}
