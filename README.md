@@ -4,7 +4,7 @@ local-first django bookmark manager/note taking app
 ## features
 * save a site by adding an entry
 * add a title, description and category for that entry/bookmark
-* currently you have to use the django admin panel to delete entries and add categories: so i made a default admin user called "admin", with its password being "1", you can access the admin panel by going to 127.0.0.1:8000/admin after running manage.py as shown below.
+* add your own categories in a dedicated categories page
 
 ## requirements
 * Python 3.12
@@ -32,4 +32,4 @@ $ pip install django==5.0.1
 $ python manage.py runserver
 ```
 ## to-do
-* add ability to add new categories and delete existing categories without having to use the django admin panel
+* add ability to edit bookmarks

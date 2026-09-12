@@ -4,20 +4,32 @@
         localnotes - add note
 {% endblock %}
 {% block content %}
-        <form method = "post" class = "add_form" enctype="multipart/form-data">
-                {% csrf_token %}
-                <label>title</label><br/>
-                <input type="text" name="title"/><br/>
-                <label>url: </label><br/>
-                <input type="text" name="url"/><br/>
-                <label>description</label><br/>
-                <textarea name="description"></textarea><br/>
-                <select name = "category">
-                        {% for category in categories %}
-                        <option value={{category.id}}>{{category.name}}</option>
-                        {% endfor %}
-                </select><br/>
-                <input type="submit">
-        </form>
-        
+        <main class="page">
+                <div class="add-form-card">
+                        <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-field">
+                                        <label>title</label>
+                                        <input type="text" name="title" placeholder="page title" required/>
+                                </div>
+                                <div class="form-field">
+                                        <label>url</label>
+                                        <input type="url" name="url" placeholder="https://example.com" required/>
+                                </div>
+                                <div class="form-field">
+                                        <label>description</label>
+                                        <textarea name="description" placeholder="what's this about?"></textarea>
+                                </div>
+                                <div class="form-field">
+                                        <label>category</label>
+                                        <select name="category">
+                                                {% for category in categories %}
+                                                <option value={{category.id}}>{{category.name}}</option>
+                                                {% endfor %}
+                                        </select>
+                                </div>
+                                <button type="submit" class="submit-btn">add note</button>
+                        </form>
+                </div>
+        </main>
 {% endblock %}

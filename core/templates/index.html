@@ -4,13 +4,30 @@
         localnotes
 {% endblock %}
 {% block content %}
-        {% for bookmark in bookmarks %}
-                <div class="bookmark">
-                        <h2>{{bookmark.title}}</h2>
-                        <a href="{{bookmark.url}}">{{bookmark.url}}</a>
-                        <p>{{bookmark.description}}</p>
-                        <p>{{bookmark.category}}</p>
-                        <a href= "{% url 'delnote' bookmark.id %}">delete</a>
-                </div>
-        {% endfor %}
+        <main class="page">
+                <h1 class="page-title">bookmarks</h1>
+                <p class="page-subtitle">your saved links</p>
+                {% if bookmarks %}
+                        <div class="bookmark-grid">
+                                {% for bookmark in bookmarks %}
+                                        <div class="bookmark">
+                                                <h2>{{bookmark.title}}</h2>
+                                                <a class="bookmark-url" href="{{bookmark.url}}">{{bookmark.url}}</a>
+                                                <p class="bookmark-description">{{bookmark.description}}</p>
+                                                <div class="bookmark-footer">
+                                                        {% if bookmark.category %}
+                                                                <span class="category-badge">{{bookmark.category}}</span>
+                                                        {% endif %}
+                                                        <a class="delete-link" href="{% url 'delnote' bookmark.id %}">delete</a>
+                                                </div>
+                                        </div>
+                                {% endfor %}
+                        </div>
+                {% else %}
+                        <div class="empty-state">
+                                <p>no bookmarks yet</p>
+                                <a class="nav-link" href="/add">add your first bookmark</a>
+                        </div>
+                {% endif %}
+        </main>
 {% endblock %}

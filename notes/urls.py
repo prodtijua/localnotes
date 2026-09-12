@@ -22,5 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name = 'main'),
     path('add/', add),
-    path('delete/<int:note_id>', del_note, name = 'delnote')
+    path('delete/<int:note_id>', del_note, name = 'delnote'),
+    path('categories/', categories, name = 'categories'),
+    path('delete_category/<int:category_id>', del_category, name = 'delcategory')
 ]

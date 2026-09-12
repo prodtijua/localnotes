@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+        localnotes - categories
+{% endblock %}
+{% block content %}
+        <main class="page">
+                <h1 class="page-title">categories</h1>
+                <p class="page-subtitle">organize your bookmarks by topic</p>
+                <div class="add-form-card">
+                        <form method="post">
+                                {% csrf_token %}
+                                <div class="form-field">
+                                        <label>new category</label>
+                                        <input type="text" name="name" placeholder="category name" required/>
+                                </div>
+                                <button type="submit" class="submit-btn">add category</button>
+                        </form>
+                </div>
+                <div class="bookmark-grid">
+                        {% for category in categories %}
+                                <div class="bookmark">
+                                        <h2>{{category.name}}</h2>
+                                        <div class="bookmark-footer">
+                                                <span class="category-badge">{{category.name}}</span>
+                                                <a class="delete-link" href="{% url 'delcategory' category.id %}">delete</a>
+                                        </div>
+                                </div>
+                        {% endfor %}
+                </div>
+{% endblock %}
