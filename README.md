@@ -19,6 +19,7 @@ $ nix develop
 $ python -m venv .venv
 $ source .venv/bin/activate
 $ pip install django==5.0.1
+$ python manage.py migrate (IMPORTANT!)
 $ python manage.py runserver
 ```
 and then go to 127.0.0.1:8000 on your browser
@@ -29,7 +30,9 @@ $ git clone {this repo}; cd {this repo}
 $ python -m venv .venv
 $ source .venv/bin/activate
 $ pip install django==5.0.1
+$ python manage.py migrate (IMPORTANT!)
 $ python manage.py runserver
 ```
+p.s. i specifically wrote "python here" but use whatever command you have to for python 3.12, be it python3, python3.12, python312 etc.
 ## to-do
 * add ability to edit bookmarks
