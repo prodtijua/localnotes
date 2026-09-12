@@ -1,2 +1,3 @@
 .venv/
 flake.lock
+*.sqlite3
