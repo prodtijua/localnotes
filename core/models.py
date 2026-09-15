@@ -10,5 +10,5 @@ class Bookmark(models.Model):
     title = models.CharField(max_length = 40)
     url = models.TextField()
     description = models.TextField()
-    category = models.ForeignKey(Category, models.CASCADE, null = True)
+    category = models.ForeignKey(Category, models.CASCADE, blank = True)
 

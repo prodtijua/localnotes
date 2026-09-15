@@ -4,8 +4,15 @@ from .models import *
 # Create your views here.
 def index(request):
     bookmarks = Bookmark.objects.all()
+    category_id = request.POST.get("category")
+    if category_id and category_id.isdigit():
+        category_id = int(category_id)
+        category = Category.objects.get(id = category_id)
+        bookmarks = Bookmark.objects.filter(category = category)
     return render(request, 'index.html', {
             "bookmarks": bookmarks,
+            "categories": Category.objects.all(),
+            "selected_category": category_id,
         })
 
 def add(request):

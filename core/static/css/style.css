@@ -200,11 +200,28 @@ body {
         max-width: 640px;
         margin: auto;
         margin-bottom: 20px;
+        margin-top: 20px;
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: var(--radius);
         padding: 40px;
         box-shadow: var(--shadow);
+}
+
+.filter {
+        width: 100%;
+        margin: auto;
+        background: var(--bg);
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 10px;
+        box-shadow: var(--shadow);
+}
+
+.filter:hover {
+        transform: translateY(-3px);
+        border-color: var(--accent);
 }
 
 .form-field {
