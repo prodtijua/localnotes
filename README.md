@@ -15,3 +15,9 @@ local-first django bookmark manager/note taking app
 * i have provided an installation/run shell script called "run-localnotes", which will put you in the .venv, make migrations, migrate and run the program.
 * if the --install flag is passed, it will install django 5.0.1 by itself and exit after doing so.
 * for NixOS users, it will enter the flake to run the program, eliminating the need to install Python system-wide.
+```bash
+$ git clone <this-repo>; cd <this-repo>
+$ ./run-localnotes --install (required before running to install django)
+$ ./run-localnotes
+```
+and then go to 127.0.0.1:8000 on a browser of your choice
