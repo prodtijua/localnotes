@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")"
+
+is_nixos() {
+  [[ -f /etc/os-release ]] && grep -qiE '^(ID|NAME)=.*nixos' /etc/os-release
+}
+
+find_python() {
+  for cmd in python3.12 python312 python3 python; do
+    if command -v "$cmd" >/dev/null 2>&1; then
+      if "$cmd" -c 'import sys; sys.version_info >= (3,0)' >/dev/null 2>&1; then
+        printf '%s\n' "$cmd"
+        return 0
+      fi
+    fi
+  done
+  return 1
+}
+
+if is_nixos && command -v nix >/dev/null 2>&1 && [[ -z "${IN_NIX_SHELL:-}" ]]; then
+  exec nix develop --command "$0" "$@"
+fi
+
+INSTALL_DEPS=0
+for arg in "$@"; do
+        case "$arg" in
+                --install) INSTALL_DEPS=1 ;;
+                *) echo "unknown option: $arg" >&2; exit 1 ;;
+        esac
+done
+
+PYTHON="$(find_python || true)"
+if [[ -z "$PYTHON" ]]; then
+  echo -e "\033[31mpython3 not found\033[0m" >&2
+  exit 1
+fi
+
+[[ -d .venv ]] || "$PYTHON" -m venv .venv
+
+# shellcheck disable=SC1091
+source .venv/bin/activate
+
+if [[ "$INSTALL_DEPS" -eq 1 ]]; then
+        if ! python -c 'import django; assert django.__version__.startswith("5.0.1")' > /dev/null 2>&1; then
+                echo "django 5.0.1 not found in .venv, installing via pip..."
+                python -m pip install 'django==5.0.1'
+        else
+                echo  -e "\033[1;32mdjango 5.0.1 already installed\033[0m"
+        fi
+        exit 0
+fi
+
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
