@@ -21,3 +21,9 @@ $ ./localnotes --install (required before running to install django)
 $ ./localnotes
 ```
 and then go to 127.0.0.1:8000 on a browser of your choice
+
+## flags
+* the ```--install``` flag installs dependencies (in this case, only django 5.0.1)
+* the ```--create-symlink``` flag creates a symlink in ```~/.local/bin```, which allows the command to be run globally
+* the ```--remove-symlink``` flag removes the symlink in ```~/.local/bin```
+* the ```--help``` flag pulls up a help menu with all flags
