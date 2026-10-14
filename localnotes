@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd "$(dirname "$0")"
+SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+cd "$(dirname "$SCRIPT_PATH")"
 
 is_nixos() {
   [[ -f /etc/os-release ]] && grep -qiE '^(ID|NAME)=.*nixos' /etc/os-release
@@ -20,19 +21,65 @@ find_python() {
 }
 
 if is_nixos && command -v nix >/dev/null 2>&1 && [[ -z "${IN_NIX_SHELL:-}" ]]; then
-  exec nix develop --command "$0" "$@"
+  exec nix develop --command "$SCRIPT_PATH" "$@"
 fi
 
+HELP=0
 INSTALL_DEPS=0
+CREATE_SYMLINK=0
+REMOVE_SYMLINK=0
 for arg in "$@"; do
         case "$arg" in
                 --install) INSTALL_DEPS=1 ;;
+                --create-symlink) CREATE_SYMLINK=1 ;;
+                --remove-symlink) REMOVE_SYMLINK=1 ;;
+                --help) HELP=1 ;;
                 *) echo "unknown option: $arg" >&2; exit 1 ;;
         esac
 done
 
+BIN_DIR="$HOME/.local/bin"
+LINK="$BIN_DIR/localnotes"
+
+if [[ "$REMOVE_SYMLINK" -eq 1 ]]; then
+        if [[ -L "$LINK" && "$(readlink -f "$LINK")" == "$SCRIPT_PATH" ]]; then
+                rm "$LINK"
+                clear
+                echo "removed symlink: $LINK"
+        else
+                clear
+                echo "nothing to remove at $LINK" >&2
+        fi
+        exit 0
+fi
+
+if [[ "$CREATE_SYMLINK" -eq 1 ]]; then
+        if [[ -e "$LINK" && ! -L "$LINK" ]]; then
+                clear
+                echo "refusing to overwrite non-symlink file: $LINK" >&2
+                exit 1
+        fi
+        clear
+        mkdir -p "$BIN_DIR"
+        ln -sfn "$SCRIPT_PATH" "$LINK"
+        echo "created symlink: $LINK -> $SCRIPT_PATH"
+        case ":$PATH:" in
+                *":$BIN_DIR:"*) ;;
+                *) echo "note: $BIN_DIR is not in your PATH" >&2 ;;
+        esac
+        exit 0
+fi
+
+if [[ "$HELP" -eq 1 ]]; then
+  clear
+  echo -e "localnotes - local bookmark manager built with django\narguments:"
+  echo -e "--help: print this menu and exit\n--install: install necessary modules (in this case only django 5.0.1) and exit\n--create-symlink: create a symlink in ~/.local/bin/localnotes so the command can be run globally and exit\n--remove-symlink: delete symlink created by --create-symlnik and exit\n"
+  exit 0
+fi
+
 PYTHON="$(find_python || true)"
 if [[ -z "$PYTHON" ]]; then
+  clear
   echo -e "\033[31mpython3 not found\033[0m" >&2
   exit 1
 fi
@@ -44,14 +91,17 @@ source .venv/bin/activate
 
 if [[ "$INSTALL_DEPS" -eq 1 ]]; then
         if ! python -c 'import django; assert django.__version__.startswith("5.0.1")' > /dev/null 2>&1; then
+                clear
                 echo "django 5.0.1 not found in .venv, installing via pip..."
                 python -m pip install 'django==5.0.1'
         else
+                clear
                 echo  -e "\033[1;32mdjango 5.0.1 already installed\033[0m"
         fi
         exit 0
 fi
 
+clear
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
